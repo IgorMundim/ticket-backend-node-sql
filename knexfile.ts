@@ -5,7 +5,7 @@ module.exports = {
   development: {
     client: "sqlite3",
     connection: {
-      filename: "./dev.sqlite3",
+      filename: "../dev.sqlite3",
     },
   },
 
@@ -13,14 +13,14 @@ module.exports = {
     client: process.env.DATABASE_CLIENT,
     connection: {
       host: process.env.DATABASE_HOST,
-      port: process.env.DATABASE_PORT,
+      port: Number(process.env.DATABASE_PORT),
       database: process.env.DATABASE,
       user: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
     },
     pool: {
-      min: 2,
-      max: 10,
+      min: Number(process.env.DATABASE_POOL_MIN),
+      max: Number(process.env.DATABASE_POOL_MAX),
     },
     migrations: {
       tableName: "knex_migrations",
