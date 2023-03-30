@@ -4,7 +4,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("account", (table) => {
     table.increments("id").primary();
     table.string("email", 60).unique().notNullable();
-    table.string("password", 60).unique().notNullable();
+    table.string("password", 60).notNullable();
     table.string("last_login", 60);
     table.string("fist_name", 60);
     table.string("last_name", 60);
@@ -26,12 +26,12 @@ export async function up(knex: Knex): Promise<void> {
     table.string("number", 15);
     table.string("street", 100);
     table.string("uf", 2);
-    table.integer("account_id").unique().unsigned();
+    table.integer("account_id").unique().unsigned().comment("Is not empty");
     table
       .foreign("account_id")
       .references("account.id")
       .onDelete("CASCADE")
-      .onUpdate("CASCADE");
+      .onUpdate("CASCADE")
     table.timestamps(true, true);
   });
 }
@@ -40,7 +40,6 @@ export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTable("address");
   await knex.schema.dropTable("card");
   await knex.schema.dropTable("account");
-  await knex.schema.dropTable("ticket");
   await knex.schema.dropTable("leasing");
   await knex.schema.dropTable("event");
   //

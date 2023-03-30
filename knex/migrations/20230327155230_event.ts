@@ -95,21 +95,7 @@ export async function up(knex: Knex): Promise<void> {
       .onUpdate("CASCADE");
     table.timestamps(true, true);
   });
-  await knex.schema.createTable("ticket", (table) => {
-    table.increments("id").primary();
-    table.decimal("price", 8, 2);
-    table.decimal("sale_price", 8, 2);
-    table.string("code");
-    table.boolean("is_student");
-    table.boolean("is_active").defaultTo(false);
-    table.integer("units");
-    table.integer("event_id").unsigned().notNullable();
-    table.foreign("event_id").references("event.id");
-    table.integer("leasing_id").unsigned().notNullable();
-    table.foreign("leasing_id").references("leasing.id");
-    table.timestamp("date_joined");
-    table.timestamps(true, true);
-  });
+
 }
 
 export async function down(knex: Knex): Promise<void> {
