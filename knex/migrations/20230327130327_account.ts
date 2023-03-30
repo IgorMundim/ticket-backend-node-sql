@@ -37,10 +37,8 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable("address");
-  await knex.schema.dropTable("card");
-  await knex.schema.dropTable("account");
-  await knex.schema.dropTable("leasing");
-  await knex.schema.dropTable("event");
+
+
+  
   //
 }

@@ -99,9 +99,6 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  await knex.schema.dropTable("event_address");
-  await knex.schema.dropTable("event_category");
-  await knex.schema.dropTable("category");
-  await knex.schema.dropTable("image");
-  await knex.schema.dropTable("batch");
+
+  //
 }
