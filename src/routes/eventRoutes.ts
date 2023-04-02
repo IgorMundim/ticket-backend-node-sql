@@ -2,6 +2,7 @@ import { Router } from "express";
 import eventController from "../controllers/EventController";
 import batchController from "../controllers/BatchController";
 import addressController from "../controllers/EventAddressController";
+import leasingController from "../controllers/LeasingController";
 const router = Router();
 
 router.get("/:pk", eventController.index);
@@ -18,5 +19,12 @@ router.get("/:pk/address", addressController.index);
 router.patch("/address/:pk", addressController.update);
 router.post("/address", addressController.create);
 router.delete("/address/:pk", addressController.delete);
+
+router.get("/:pk/leasing", leasingController.index);
+router.patch("/leasing/:pk", leasingController.update);
+router.post("/leasing", leasingController.create);
+router.delete("/leasing/:pk", leasingController.delete);
+
+
 
 export default router;
