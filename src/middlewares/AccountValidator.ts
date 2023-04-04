@@ -28,7 +28,7 @@ class AccountValidator {
 
     next();
   }
-  
+
   update(req: Request, res: Response, next: NextFunction) {
     const emailIsValid = validator.email(req.body.email);
     const passwordIsValid = validator.password(req.body.password);
