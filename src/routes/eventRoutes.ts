@@ -8,6 +8,7 @@ import imageController from "../controllers/ImageController";
 import multerUpload from "../util/multerUpload";
 import leasingValidator from "../middlewares/LeasingValidator";
 import categotyValidator from "../middlewares/CategoryValidator";
+import batchValidator from "../middlewares/BatchValidator";
 
 const router = Router();
 
@@ -17,8 +18,8 @@ router.post("/", eventController.create);
 router.delete("/:pk", eventController.delete);
 
 router.get("/:pk/batch", batchController.index);
-router.patch("/batch/:pk", batchController.update);
-router.post("/batch", batchController.create);
+router.patch("/batch/:pk", batchValidator.update, batchController.update);
+router.post("/batch", batchValidator.create, batchController.create);
 router.delete("/batch/:pk", batchController.delete);
 
 router.get("/:pk/address", addressController.index);

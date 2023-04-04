@@ -1,4 +1,24 @@
 class Validator {
+  date(date: Date, name: string) {
+    if (date !== undefined)
+      if (date === null)
+        return { messageAlert: `Field ${name} canot be null!` };
+      else if (!String(date).match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/gm))
+        return {
+          messageAlert: `Invalid value to ${name}! aaaa-mm-dd hh:mm:ss`,
+        };
+    return false;
+  }
+  integer(integer: number, name: string) {
+    if (integer !== undefined)
+      if (integer === null)
+        return { messageAlert: `Field ${name} canot be null!` };
+      else if (!String(integer).match(/^-?\d+$/gm))
+        return {
+          messageAlert: `Invalid value to ${name}!`,
+        };
+    return false;
+  }
   email(email: string) {
     if (email !== undefined)
       if (email === null) return { messageAlert: `Email canot be null!` };
