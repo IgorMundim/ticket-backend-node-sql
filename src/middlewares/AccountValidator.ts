@@ -1,11 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import validator from "../util/Validator";
-const a = (data: string, field: string) => {
-  if (data !== undefined)
-    if (data === null) return { messageAlert: `${field} canot be null!` };
-    else if (!validator.email(String(data)))
-      return { messageAlert: `Invalid ${field.toLowerCase()}!` };
-};
 class AccountValidator {
   create(req: Request, res: Response, next: NextFunction) {
     if (
