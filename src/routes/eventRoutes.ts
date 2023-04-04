@@ -6,6 +6,7 @@ import leasingController from "../controllers/LeasingController";
 import categoryController from "../controllers/ImageController";
 import imageController from "../controllers/ImageController";
 import multerUpload from "../util/multerUpload";
+import leasingValidator from "../middlewares/LeasingValidator";
 
 const router = Router();
 
@@ -25,8 +26,12 @@ router.post("/address", addressController.create);
 router.delete("/address/:pk", addressController.delete);
 
 router.get("/:pk/leasing", leasingController.index);
-router.patch("/leasing/:pk", leasingController.update);
-router.post("/leasing", leasingController.create);
+router.patch(
+  "/leasing/:pk",
+  leasingValidator.isValid,
+  leasingController.update
+);
+router.post("/leasing", leasingValidator.isValid, leasingController.create);
 router.delete("/leasing/:pk", leasingController.delete);
 
 router.get("/:pk/image", imageController.index);

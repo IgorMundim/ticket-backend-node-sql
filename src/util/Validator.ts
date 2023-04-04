@@ -36,7 +36,7 @@ class Validator {
   isBollean(isBollean: boolean, name: string) {
     if (isBollean !== undefined)
       if (typeof isBollean !== "boolean")
-        return { messageAlert: `${name} is not boolean!` };
+        return { messageAlert: `Fied ${name} needs boolean value !` };
     return false;
   }
 
@@ -77,11 +77,12 @@ class Validator {
         return { messageAlert: `Invalid uf! ??` };
     return false;
   }
-  price(value: number) {
+  price(value: number, name: string) {
     if (value !== undefined)
-      if (value === null) return { messageAlert: `Value canot be null!` };
+      if (value === null)
+        return { messageAlert: `Field ${name} canot be null!` };
       else if (!String(value).match(/^[0-9]+(\.[0-9]{1,2})?$/gm))
-        return { messageAlert: `Invalid value! ?.?` };
+        return { messageAlert: `Invalid value to ${name}! ?.?` };
     return false;
   }
 }
