@@ -59,9 +59,8 @@ export const deleteAccount = async (pk: number) => {
 };
 
 export const query = {
-    getAccount,
-    updateAccount,
-    createAccount,
-    deleteAccount,
-  };
-  
+  getAccount,
+  updateAccount,
+  createAccount,
+  deleteAccount,
+};
