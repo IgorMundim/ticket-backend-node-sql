@@ -3,15 +3,9 @@ import { Connection } from "../provider/Connection";
 export interface Category {
   id: string;
   name: string;
-  in_room: boolean;
-  date_end: Date;
-  date_start: Date;
-  description: string;
-  is_virtual: boolean;
-  video_url: string;
-  is_published: boolean;
-  created_at: Date;
-  updated_at: Date;
+  is_active: boolean;
+  url: string;
+  alt_text: string;
 }
 
 export const getCategory = async (pk: number) => {
@@ -21,7 +15,7 @@ export const getCategory = async (pk: number) => {
       .select()
       .where({ id: pk });
   } catch (e) {
-    Error;
+    return null;
   }
 };
 
@@ -31,7 +25,8 @@ export const createCategory = async (category: Category) => {
       .table("category")
       .insert(category);
   } catch (e) {
-    Error;
+    console.log(e);
+    return null;
   }
 };
 
@@ -53,7 +48,7 @@ export const deleteCategory = async (pk: number) => {
       .where({ id: pk })
       .del();
   } catch (e) {
-    Error;
+    return null;
   }
 };
 

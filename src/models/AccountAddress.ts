@@ -43,6 +43,7 @@ export const updateAddress = async (address: Address, pk: number) => {
       .where({ id: pk })
       .update(address);
   } catch (e) {
+    console.log("aqu");
     return null;
   }
 };

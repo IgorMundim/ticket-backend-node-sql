@@ -3,10 +3,11 @@ import eventController from "../controllers/EventController";
 import batchController from "../controllers/BatchController";
 import addressController from "../controllers/EventAddressController";
 import leasingController from "../controllers/LeasingController";
-import categoryController from "../controllers/ImageController";
+import categoryController from "../controllers/CategoryController";
 import imageController from "../controllers/ImageController";
 import multerUpload from "../util/multerUpload";
 import leasingValidator from "../middlewares/LeasingValidator";
+import categotyValidator from "../middlewares/CategoryValidator";
 
 const router = Router();
 
@@ -40,8 +41,18 @@ router.post("/image", multerUpload.single("url"), imageController.create);
 router.delete("/image/:pk", imageController.delete);
 
 router.get("/category/:pk", categoryController.index);
-router.patch("/category/:pk", categoryController.update);
-router.post("/category", categoryController.create);
+router.patch(
+  "/category/:pk",
+  categotyValidator.isValid,
+  multerUpload.single("url"),
+  categoryController.update
+);
+router.post(
+  "/category",
+  categotyValidator.isValid,
+  multerUpload.single("url"),
+  categoryController.create
+);
 router.delete("/category/:pk", categoryController.delete);
 
 export default router;

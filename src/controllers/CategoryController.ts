@@ -8,6 +8,7 @@ class CategoryController {
     return res.status(400).json();
   }
   async update(req: Request, res: Response) {
+    req.body.url = req.file?.filename;
     const category = await query.updateCategory(
       req.body,
       Number(req.params.pk)
@@ -16,6 +17,7 @@ class CategoryController {
     return res.status(400).json();
   }
   async create(req: Request, res: Response) {
+    req.body.url = req.file?.filename;
     const category = await query.createCategory(req.body);
     if (category) return res.status(200).json();
     return res.status(400).json();
