@@ -28,6 +28,17 @@ class Validator {
         return { messageAlert: `Invalid name!` };
     return false;
   }
+  isNotNull(isNotNull: string, name: string) {
+    if (isNotNull !== undefined)
+      if (isNotNull === null) return { messageAlert: `${name} canot be null!` };
+    return false;
+  }
+  isBollean(isBollean: boolean, name: string) {
+    if (isBollean !== undefined)
+      if (typeof isBollean !== "boolean")
+        return { messageAlert: `${name} is not boolean!` };
+    return false;
+  }
 
   cpf(cpf: string) {
     /* eslint-disable no-useless-escape */
@@ -40,7 +51,8 @@ class Validator {
 
   telephone(telephone: string) {
     if (telephone !== undefined)
-      if (telephone === null) return { messageAlert: `Telephone canot be null!` };
+      if (telephone === null)
+        return { messageAlert: `Telephone canot be null!` };
       else if (!String(telephone).match(/^\(\d{2}\) ?\d{4,5}\-\d{4}$/gm))
         return {
           messageAlert: `Invalid telephone! (??)?????-???? or (??)????-????`,
@@ -50,7 +62,8 @@ class Validator {
 
   postalCode(postal_code: string) {
     if (postal_code !== undefined)
-      if (postal_code === null) return { messageAlert: `Postal code canot be null!` };
+      if (postal_code === null)
+        return { messageAlert: `Postal code canot be null!` };
       else if (!String(postal_code).match(/^\d{5}\-?\d{3}$/gm))
         return {
           messageAlert: `Invalid postal code! ?????-???`,
@@ -62,6 +75,13 @@ class Validator {
       if (uf === null) return { messageAlert: `UF canot be null!` };
       else if (!String(uf).match(/^[a-zA-Z]{2,2}$/gm))
         return { messageAlert: `Invalid uf! ??` };
+    return false;
+  }
+  price(value: number) {
+    if (value !== undefined)
+      if (value === null) return { messageAlert: `Value canot be null!` };
+      else if (!String(value).match(/^[0-9]+(\.[0-9]{1,2})?$/gm))
+        return { messageAlert: `Invalid value! ?.?` };
     return false;
   }
 }
