@@ -9,6 +9,7 @@ import multerUpload from "../util/multerUpload";
 import leasingValidator from "../middlewares/LeasingValidator";
 import categotyValidator from "../middlewares/CategoryValidator";
 import batchValidator from "../middlewares/BatchValidator";
+import eventAddressValidator from "../middlewares/EventAddressValidator";
 
 const router = Router();
 
@@ -23,8 +24,16 @@ router.post("/batch", batchValidator.create, batchController.create);
 router.delete("/batch/:pk", batchController.delete);
 
 router.get("/:pk/address", addressController.index);
-router.patch("/address/:pk", addressController.update);
-router.post("/address", addressController.create);
+router.patch(
+  "/address/:pk",
+  eventAddressValidator.isValid,
+  addressController.update
+);
+router.post(
+  "/address",
+  eventAddressValidator.isValid,
+  addressController.create
+);
 router.delete("/address/:pk", addressController.delete);
 
 router.get("/:pk/leasing", leasingController.index);
