@@ -23,6 +23,7 @@ export const createImage = async (image: Image) => {
       .table("image")
       .insert(image);
   } catch (e) {
+    console.log(e);
     Error;
   }
 };
@@ -34,7 +35,6 @@ export const updateImage = async (image: Image, pk: number) => {
       .where({ id: pk })
       .update(image);
   } catch (e) {
-    console.log(e);
     return null;
   }
 };

@@ -9,13 +9,15 @@ import multerUpload from "../util/multerUpload";
 import leasingValidator from "../middlewares/LeasingValidator";
 import categotyValidator from "../middlewares/CategoryValidator";
 import batchValidator from "../middlewares/BatchValidator";
+import imageValidator from "../middlewares/ImageValidator";
 import eventAddressValidator from "../middlewares/EventAddressValidator";
+import eventValidator from "../middlewares/EventValidator";
 
 const router = Router();
 
 router.get("/:pk", eventController.index);
-router.patch("/:pk", eventController.update);
-router.post("/", eventController.create);
+router.patch("/:pk", eventValidator.update, eventController.update);
+router.post("/", eventValidator.create, eventController.create);
 router.delete("/:pk", eventController.delete);
 
 router.get("/:pk/batch", batchController.index);
@@ -46,8 +48,19 @@ router.post("/leasing", leasingValidator.isValid, leasingController.create);
 router.delete("/leasing/:pk", leasingController.delete);
 
 router.get("/:pk/image", imageController.index);
-router.patch("/image/:pk", multerUpload.single("url"), imageController.update);
-router.post("/image", multerUpload.single("url"), imageController.create);
+router.patch(
+  "/image/:pk",
+
+  multerUpload.single("url"),
+  imageValidator.isValid,
+  imageController.update
+);
+router.post(
+  "/image",
+  multerUpload.single("url"),
+  imageValidator.isValid,
+  imageController.create
+);
 router.delete("/image/:pk", imageController.delete);
 
 router.get("/category/:pk", categoryController.index);
