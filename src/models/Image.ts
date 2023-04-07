@@ -7,47 +7,30 @@ export interface Image {
 }
 
 export const getImage = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("image")
-      .select()
-      .where({ event_id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("image")
+    .select()
+    .where({ event_id: pk });
 };
 
 export const createImage = async (image: Image) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("image")
-      .insert(image);
-  } catch (e) {
-    console.log(e);
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("image")
+    .insert(image);
 };
 
 export const updateImage = async (image: Image, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("image")
-      .where({ id: pk })
-      .update(image);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("image")
+    .where({ id: pk })
+    .update(image);
 };
 
 export const deleteImage = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("image")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("image")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

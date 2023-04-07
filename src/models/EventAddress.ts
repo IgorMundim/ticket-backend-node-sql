@@ -16,46 +16,30 @@ export interface Address {
 }
 
 export const getAddress = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("event_address")
-      .select()
-      .where({ event_id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("event_address")
+    .select()
+    .where({ event_id: pk });
 };
 
 export const createAddress = async (address: Address) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("event_address")
-      .insert(address);
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("event_address")
+    .insert(address);
 };
 
 export const updateAddress = async (address: Address, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("event_address")
-      .where({ id: pk })
-      .update(address);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("event_address")
+    .where({ id: pk })
+    .update(address);
 };
 
 export const deleteAddress = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("event_address")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("event_address")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

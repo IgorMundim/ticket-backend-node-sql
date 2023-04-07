@@ -9,47 +9,30 @@ export interface Category {
 }
 
 export const getCategory = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("category")
-      .select()
-      .where({ id: pk });
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("category")
+    .select()
+    .where({ id: pk });
 };
 
 export const createCategory = async (category: Category) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("category")
-      .insert(category);
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("category")
+    .insert(category);
 };
 
 export const updateCategory = async (category: Category, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("category")
-      .where({ id: pk })
-      .update(category);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("category")
+    .where({ id: pk })
+    .update(category);
 };
 
 export const deleteCategory = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("category")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("category")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

@@ -17,48 +17,33 @@ export interface Account {
 }
 
 export const getAccount = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("account")
-      .select()
-      .where({ id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("account")
+    .select()
+    .where({ id: pk })
+    .first();
 };
 
 export const createAccount = async (account: Account) => {
-  try {
-    account.password = await hash(account.password, 8);
-    return await Connection.getProductionEnvironment()
-      .table("account")
-      .insert(account);
-  } catch (e) {
-    Error;
-  }
+  account.password = await hash(account.password, 8);
+  return await Connection.getProductionEnvironment()
+    .table("account")
+    .insert(account);
 };
 
 export const updateAccount = async (account: Account, pk: number) => {
-  try {
-    account.password = await hash(account.password, 8);
-    return await Connection.getProductionEnvironment()
-      .table("account")
-      .where({ id: pk })
-      .update(account);
-  } catch (e) {
-    return null;
-  }
+  account.password = await hash(account.password, 8);
+  return await Connection.getProductionEnvironment()
+    .table("account")
+    .where({ id: pk })
+    .update(account);
 };
 
 export const deleteAccount = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("account")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("account")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

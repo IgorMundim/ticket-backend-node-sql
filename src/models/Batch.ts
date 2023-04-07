@@ -12,46 +12,30 @@ export interface Batch {
 }
 
 export const getBatch = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("batch")
-      .select()
-      .where({ event_id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("batch")
+    .select()
+    .where({ event_id: pk });
 };
 
 export const createBatch = async (batch: Batch) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("batch")
-      .insert(batch);
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("batch")
+    .insert(batch);
 };
 
 export const updateBatch = async (batch: Batch, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("batch")
-      .where({ id: pk })
-      .update(batch);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("batch")
+    .where({ id: pk })
+    .update(batch);
 };
 
 export const deleteBatch = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("batch")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("batch")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

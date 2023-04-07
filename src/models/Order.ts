@@ -14,46 +14,30 @@ export interface Order {
 }
 
 export const getOrder = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("order")
-      .select()
-      .where({ id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("order")
+    .select()
+    .where({ id: pk });
 };
 
 export const createOrder = async (order: Order) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("order")
-      .insert(order);
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("order")
+    .insert(order);
 };
 
 export const updateOrder = async (order: Order, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("order")
-      .where({ id: pk })
-      .update(order);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("order")
+    .where({ id: pk })
+    .update(order);
 };
 
 export const deleteOrder = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("order")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("order")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

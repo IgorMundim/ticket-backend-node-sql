@@ -13,46 +13,28 @@ export interface Card {
 }
 
 export const getCard = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("card")
-      .select()
-      .where({ account_id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("card")
+    .select()
+    .where({ account_id: pk });
 };
 
 export const createCard = async (card: Card) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("card")
-      .insert(card);
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment().table("card").insert(card);
 };
 
 export const updateCard = async (card: Card, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("card")
-      .where({ id: pk })
-      .update(card);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("card")
+    .where({ id: pk })
+    .update(card);
 };
 
 export const deleteCard = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("card")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("card")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

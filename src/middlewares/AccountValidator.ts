@@ -5,7 +5,7 @@ class AccountValidator {
     if (
       req.body.email === undefined ||
       req.body.password === undefined ||
-      req.body.fist_name === undefined ||
+      req.body.first_name === undefined ||
       req.body.last_name === undefined
     )
       return res.status(400).json({ messageAlert: `There are empty fields!` });

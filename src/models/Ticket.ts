@@ -15,46 +15,30 @@ export interface Address {
 }
 
 export const getTicket = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("ticket")
-      .select()
-      .where({ order_id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("ticket")
+    .select()
+    .where({ order_id: pk });
 };
 
 export const createTicket = async (ticket: Address) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("ticket")
-      .insert(ticket);
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("ticket")
+    .insert(ticket);
 };
 
 export const updateTicket = async (ticket: Address, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("ticket")
-      .where({ id: pk })
-      .update(ticket);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("ticket")
+    .where({ id: pk })
+    .update(ticket);
 };
 
 export const deleteTicket = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("ticket")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("ticket")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

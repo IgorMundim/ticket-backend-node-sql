@@ -13,46 +13,30 @@ export interface Leasing {
 }
 
 export const getLeasing = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("leasing")
-      .select()
-      .where({ event_id: pk });
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("leasing")
+    .select()
+    .where({ event_id: pk });
 };
 
 export const createLeasing = async (leasing: Leasing) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("leasing")
-      .insert(leasing);
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("leasing")
+    .insert(leasing);
 };
 
 export const updateLeasing = async (leasing: Leasing, pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("leasing")
-      .where({ id: pk })
-      .update(leasing);
-  } catch (e) {
-    return null;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("leasing")
+    .where({ id: pk })
+    .update(leasing);
 };
 
 export const deleteLeasing = async (pk: number) => {
-  try {
-    return await Connection.getProductionEnvironment()
-      .table("leasing")
-      .where({ id: pk })
-      .del();
-  } catch (e) {
-    Error;
-  }
+  return await Connection.getProductionEnvironment()
+    .table("leasing")
+    .where({ id: pk })
+    .del();
 };
 
 export const query = {

@@ -16,24 +16,16 @@ export interface Address {
 }
 
 export const getAddress = async (pk: number) => {
-  try {
     return await Connection.getProductionEnvironment()
       .table("address")
       .select()
       .where({ account_id: pk });
-  } catch (e) {
-    Error;
-  }
 };
 
 export const createAddress = async (address: Address) => {
-  try {
     return await Connection.getProductionEnvironment()
       .table("address")
       .insert(address);
-  } catch (e) {
-    Error;
-  }
 };
 
 export const updateAddress = async (address: Address, pk: number) => {
@@ -49,14 +41,10 @@ export const updateAddress = async (address: Address, pk: number) => {
 };
 
 export const deleteAddress = async (pk: number) => {
-  try {
     return await Connection.getProductionEnvironment()
       .table("address")
       .where({ id: pk })
       .del();
-  } catch (e) {
-    Error;
-  }
 };
 
 export const query = {
