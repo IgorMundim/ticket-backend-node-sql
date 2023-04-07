@@ -24,7 +24,6 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable("event_address", (table) => {
     table.increments("id").primary();
-    table.string("cpf", 15);
     table.string("telephone", 20);
     table.string("postal_code", 10);
     table.string("complement", 150);
@@ -80,7 +79,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("leasing", (table) => {
     table.increments("id").primary();
     table.string("name", 100);
-    table.string("descroption", 150);
+    table.string("description", 150);
     table.boolean("is_active").defaultTo(true);
     table.decimal("store_price", 8, 2);
     table.decimal("sale_price", 8, 2);

@@ -1,4 +1,5 @@
 import { Connection } from "../provider/Connection";
+import { hash } from "bcrypt";
 export interface Account {
   id: string;
   email: string;
@@ -28,6 +29,7 @@ export const getAccount = async (pk: number) => {
 
 export const createAccount = async (account: Account) => {
   try {
+    account.password = await hash(account.password, 8);
     return await Connection.getProductionEnvironment()
       .table("account")
       .insert(account);
@@ -38,6 +40,7 @@ export const createAccount = async (account: Account) => {
 
 export const updateAccount = async (account: Account, pk: number) => {
   try {
+    account.password = await hash(account.password, 8);
     return await Connection.getProductionEnvironment()
       .table("account")
       .where({ id: pk })

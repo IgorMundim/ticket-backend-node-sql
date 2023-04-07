@@ -3,3 +3,5 @@ coverage
 dist
 dev.sqlite3
 uploads
+.env
+dev.sqlite3

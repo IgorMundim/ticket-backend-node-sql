@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("email", 60).unique().notNullable();
     table.string("password", 60).notNullable();
     table.string("last_login", 60);
-    table.string("fist_name", 60);
+    table.string("first_name", 60);
     table.string("last_name", 60);
     table.boolean("is_superuser").defaultTo(false);
     table.boolean("is_admin").defaultTo(false);
@@ -14,6 +14,17 @@ export async function up(knex: Knex): Promise<void> {
     table.string("resetToken");
     table.timestamp("resetTokenExpiration");
     table.timestamps(true, true);
+  });
+  await knex.schema.createTable("refresh_token", (table) => {
+    table.increments("id").primary();
+    table.string("token");
+    table.integer("expire_in");
+    table.integer("account_id").unique().unsigned();
+    table
+      .foreign("account_id")
+      .references("account.id")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
   });
   await knex.schema.createTable("address", (table) => {
     table.increments("id").primary();
@@ -31,14 +42,11 @@ export async function up(knex: Knex): Promise<void> {
       .foreign("account_id")
       .references("account.id")
       .onDelete("CASCADE")
-      .onUpdate("CASCADE")
+      .onUpdate("CASCADE");
     table.timestamps(true, true);
   });
 }
 
 export async function down(knex: Knex): Promise<void> {
-
-
-  
   //
 }

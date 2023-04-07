@@ -13,6 +13,11 @@ declare global {
       DATABASE_POOL_IDLE: number;
     }
   }
+  declare namespace Express {
+    interface Request {
+      account: string | JwtPayload;
+    }
+  }
 }
 
 // If this file has no import/export statements (i.e. is a script)
