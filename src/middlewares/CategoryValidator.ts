@@ -3,7 +3,7 @@ import validator from "../util/Validator";
 
 class CategoryValidator {
   isValid(req: Request, res: Response, next: NextFunction) {
-    const nameIsValid = validator.name(req.body.name);
+    const nameIsValid = validator.name(req.body.name, "name");
     const categoryIsValid = validator.isBollean(
       req.body.is_active,
       "is_active"

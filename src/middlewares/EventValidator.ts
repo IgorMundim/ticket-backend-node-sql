@@ -9,7 +9,7 @@ class EventValidator {
     )
       return res.status(400).json({ messageAlert: `There are empty fields!` });
 
-    const nameIsValid = validator.name(req.body.name);
+    const nameIsValid = validator.name(req.body.name, "name");
     const inRoomIsValid = validator.isBollean(req.body.in_room, "in_room");
     const dateEndIsValid = validator.date(req.body.date_end, "date_end");
     const dateStartIsValid = validator.date(req.body.date_start, "date_start");
@@ -44,7 +44,7 @@ class EventValidator {
   }
 
   update(req: Request, res: Response, next: NextFunction) {
-    const nameIsValid = validator.name(req.body.name);
+    const nameIsValid = validator.name(req.body.name, "name");
     const inRoomIsValid = validator.isBollean(req.body.in_room, "in_room");
     const dateEndIsValid = validator.date(req.body.date_end, "date_end");
     const dateStartIsValid = validator.date(req.body.date_start, "date_start");

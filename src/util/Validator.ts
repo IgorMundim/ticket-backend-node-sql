@@ -41,11 +41,11 @@ class Validator {
         return { messageAlert: `Invalid password!` };
     return false;
   }
-  name(name: string) {
-    if (name !== undefined)
-      if (name === null) return { messageAlert: `Name canot be null!` };
-      else if (!String(name).match(/^[a-zA-Z]{2,58}$/gm))
-        return { messageAlert: `Invalid name!` };
+  name(data: string, name: string) {
+    if (data !== undefined)
+      if (data === null) return { messageAlert: `${name} canot be null!` };
+      else if (!String(data).match(/^[a-zA-Z]{2,58}$/gm))
+        return { messageAlert: `Invalid ${name}!` };
     return false;
   }
   isNotNull(isNotNull: string, name: string) {

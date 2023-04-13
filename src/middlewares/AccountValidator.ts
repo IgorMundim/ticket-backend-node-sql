@@ -12,8 +12,8 @@ class AccountValidator {
 
     const emailIsValid = validator.email(req.body.email);
     const passwordIsValid = validator.password(req.body.password);
-    const firstNameIsValid = validator.name(req.body.fist_name);
-    const lastNameIsValid = validator.name(req.body.last_name);
+    const firstNameIsValid = validator.name(req.body.first_name, "first_name");
+    const lastNameIsValid = validator.name(req.body.last_name, "last_name");
 
     if (emailIsValid) return res.status(400).json(emailIsValid);
     if (passwordIsValid) return res.status(400).json(passwordIsValid);
@@ -26,8 +26,8 @@ class AccountValidator {
   update(req: Request, res: Response, next: NextFunction) {
     const emailIsValid = validator.email(req.body.email);
     const passwordIsValid = validator.password(req.body.password);
-    const firstNameIsValid = validator.name(req.body.fist_name);
-    const lastNameIsValid = validator.name(req.body.last_name);
+    const firstNameIsValid = validator.name(req.body.fist_name, "first_name");
+    const lastNameIsValid = validator.name(req.body.last_name, "last_name");
 
     if (emailIsValid) return res.status(400).json(emailIsValid);
     if (passwordIsValid) return res.status(400).json(passwordIsValid);

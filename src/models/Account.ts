@@ -55,7 +55,6 @@ class Account {
       .table("account")
       .insert({
         email,
-        last_login: Date(),
         last_name,
         first_name,
         password: newPassword,
@@ -98,7 +97,6 @@ class Account {
       .where({ id: pk })
       .update({
         email,
-        last_login: Date(),
         last_name,
         first_name,
         password: newPassword,

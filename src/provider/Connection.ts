@@ -3,11 +3,19 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const environmentTest = Knex({
-  client: "sqlite3",
+  client: process.env.DATABASE_CLIENT,
   connection: {
-    filename: "./dev.sqlite3",
+    host: process.env.DATABASE_HOST,
+    port: Number(process.env.DATABASE_PORT),
+    database: "development",
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
   },
-  useNullAsDefault: true,
+  pool: {
+    min: Number(process.env.DATABASE_POOL_MIN),
+    max: Number(process.env.DATABASE_POOL_MAX),
+  },
+  acquireConnectionTimeout: 2000,
 });
 
 const postgresClient = Knex({
