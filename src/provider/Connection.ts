@@ -7,6 +7,7 @@ const environmentTest = Knex({
   connection: {
     filename: "./dev.sqlite3",
   },
+  useNullAsDefault: true,
 });
 
 const postgresClient = Knex({
@@ -25,13 +26,19 @@ const postgresClient = Knex({
   acquireConnectionTimeout: 2000,
 });
 
+const baseDefault = Number(process.env.DEBUG)
+  ? environmentTest
+  : postgresClient;
+
 export const Connection = {
+  getDefault(): ReturnType<typeof Knex> {
+    return baseDefault;
+  },
   getEnvironmentTest(): ReturnType<typeof Knex> {
     return environmentTest;
   },
 
-  getProductionEnvironment(): ReturnType<typeof Knex>{
-      return postgresClient;
-  }
+  getProductionEnvironment(): ReturnType<typeof Knex> {
+    return postgresClient;
+  },
 };
-

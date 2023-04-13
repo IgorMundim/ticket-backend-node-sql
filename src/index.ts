@@ -18,3 +18,5 @@ app.use("/api/v1/order", orderRoutes);
 app.use(errorMiddleware.error);
 
 app.listen(3000, () => console.log("App listening"));
+
+export default app;

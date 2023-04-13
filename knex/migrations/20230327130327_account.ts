@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     table.increments("id").primary();
     table.string("email", 60).unique().notNullable();
     table.string("password", 60).notNullable();
-    table.string("last_login", 60);
+    table.timestamp("last_login");
     table.string("first_name", 60);
     table.string("last_name", 60);
     table.boolean("is_superuser").defaultTo(false);
