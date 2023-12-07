@@ -7,6 +7,7 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier"
   ],
   "overrides": [],
@@ -16,6 +17,7 @@
     "sourceType": "module",
     "project": ["./tsconfig.json"]
   },
+  "files": ["*.ts", "*.tsx"],
   "plugins": ["@typescript-eslint"],
-  "rules": {}
+  "rules": { "semi": "off", "@typescript-eslint/semi": "error" }
 }

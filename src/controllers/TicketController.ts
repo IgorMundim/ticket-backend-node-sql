@@ -1,26 +1,16 @@
 import { Request, Response } from "express";
-import { query } from "../models/Ticket";
+import { TicketKnexDBRepository } from "../repositories/ticketKnexDBRepository";
 
 class TicketController {
-  async index(req: Request, res: Response) {
-    const ticket = await query.getTicket(Number(req.params.pk));
-    if (ticket) return res.status(200).json(ticket);
-    return res.status(400).json();
+  async find(req: Request, res: Response) {
+    const result = await new TicketKnexDBRepository().find(req.params);
+    if(result[0]) return res.status(200).json(result)
+    return res.status(400).json({message: "Ticket not found!"})
   }
-  async update(req: Request, res: Response) {
-    const ticket = await query.updateTicket(req.body, Number(req.params.pk));
-    if (ticket) return res.status(200).json();
-    return res.status(400).json();
-  }
-  async create(req: Request, res: Response) {
-    const ticket = await query.createTicket(req.body);
-    if (ticket) return res.status(200).json();
-    return res.status(400).json();
-  }
-  async delete(req: Request, res: Response) {
-    const ticket = await query.deleteTicket(Number(req.params.pk));
-    if (ticket) return res.status(200).json();
-    return res.status(400).json();
+  async findOne(req: Request, res: Response) {
+    const result = await new TicketKnexDBRepository().findOne(req.params);
+    if(result) return res.status(200).json(result)
+    return res.status(400).json({message: "Ticket not found!"})
   }
 }
 

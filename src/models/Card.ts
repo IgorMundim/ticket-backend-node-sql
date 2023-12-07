@@ -1,45 +1,25 @@
-import { Connection } from "../provider/Connection";
+import { BaseModel } from ".";
 export enum Payment {
   credit,
   pix,
 }
-export interface Card {
-  id: string;
-  installment: string;
-  type_of_payment: Payment;
-  ticket_id: number;
-  created_at: Date;
-  updated_at: Date;
+export class Card implements BaseModel {
+  constructor(
+    private _accountId: string,
+    private _installment: string,
+    private _typeOfPayment: Payment,
+    private _ticketId: string,
+    private _id?: string,
+    private _createdAt?: Date,
+    private _updatedAt?: Date
+  ) {}
+  public toJson(): {} {
+    return {
+      account_id: this._accountId,
+      id: this._id,
+      installment: this._installment,
+      type_of_payment: this._typeOfPayment,
+      ticket_id: this._ticketId,
+    };
+  }
 }
-
-export const getCard = async (pk: number) => {
-  return await Connection.getProductionEnvironment()
-    .table("card")
-    .select()
-    .where({ account_id: pk });
-};
-
-export const createCard = async (card: Card) => {
-  return await Connection.getProductionEnvironment().table("card").insert(card);
-};
-
-export const updateCard = async (card: Card, pk: number) => {
-  return await Connection.getProductionEnvironment()
-    .table("card")
-    .where({ id: pk })
-    .update(card);
-};
-
-export const deleteCard = async (pk: number) => {
-  return await Connection.getProductionEnvironment()
-    .table("card")
-    .where({ id: pk })
-    .del();
-};
-
-export const query = {
-  getCard,
-  updateCard,
-  createCard,
-  deleteCard,
-};

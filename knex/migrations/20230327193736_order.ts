@@ -38,7 +38,7 @@ export async function up(knex: Knex): Promise<void> {
     table.enu("type_of_payment", ["credit", "pix"]);
     table.integer("ticket_id").unsigned();
     table.foreign("ticket_id").references("ticket.id");
-    table.integer("account_id").unsigned();
+    table.integer("account_id").unique().unsigned().notNullable();
     table
       .foreign("account_id")
       .references("account.id")

@@ -1,135 +1,124 @@
-import { Connection } from "../provider/Connection";
 import { hash } from "bcrypt";
 import { BadRequestError } from "../util/ApiError";
-export interface IAccount {
-  id?: number;
-  email?: string;
-  password?: string;
-  last_login?: Date;
-  first_name?: string;
-  last_name?: string;
-  is_superuser?: boolean;
-  is_admin?: boolean;
-  is_active?: boolean;
-  resetToken?: boolean;
-  resetTokenExpiration?: string;
-  created_at?: Date;
-  updated_at?: Date;
+import { BaseModel } from ".";
+import isNotValid from "../util/Validator";
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    CreateAccountInput:
+ *      type: object
+ *      required:
+ *        - email
+ *        - first_name
+ *        - last_name
+ *        - is_superuser
+ *        - is_admin
+ *        - is_active 
+ *      properties:
+ *        email:
+ *          type: string
+ *          default: default@default.com
+ *        first_name:
+ *          type: string
+ *          default: firstName
+ *        last_name:
+ *          type: string
+ *          default: lastName
+ *        password:
+ *          type: string
+ *          default: Abc1234#
+ *        is_superuser:
+ *          type: boolean
+ *          default: false
+ *        is_admin:
+ *          type: boolean
+ *          default: false
+ *        is_active:
+ *          type: boolean
+ *          default: true
+ *    CreateAccountResponse:
+ *      type: object
+ *      properties:
+ *        email:
+ *          type: string
+ *        last_login:
+ *          type: string
+ *        first_name:
+ *          type: string
+ *        last_name:
+ *          type: string
+ *        is_superuser:
+ *          type: boolean
+ *        is_admin:
+ *          type: boolean
+ *        is_active:
+ *          type: boolean
+ *        created_at:
+ *          type: string
+ *        updated_at:
+ *          type: string
+ */  
+export class Account implements BaseModel {
+  constructor(
+    private _email: string,
+    private _password: string,
+    private _firstName: string,
+    private _lastName: string,
+    private _isSuperuser: boolean,
+    private _isAdmin: boolean,
+    private _isActive: boolean,
+    private _lastLogin?: Date,
+    private _id?: string,
+    private _created_at?: Date,
+    private _updated_at?: Date
+  ) {}
+
+  public toJson(): {} {
+    return {
+      email: this._email,
+      password: this._password,
+      first_name: this._firstName,
+      last_name: this._lastName,
+      is_superuser: this._isSuperuser,
+      is_admin: this._isAdmin,
+      is_active: this._isActive,
+      last_login: this._lastLogin,
+    };
+  }
+
+  public async isValid(isCreate = false): Promise<void> {
+    if (isCreate) {
+      if (this._email === undefined)
+        throw new BadRequestError("Email cannot be null!");
+      if (this._password === undefined)
+        throw new BadRequestError("Password cannot be null!");
+      if (this._firstName === undefined)
+        throw new BadRequestError("First name cannot be null!");
+      if (this._lastName === undefined)
+        throw new BadRequestError("Last name cannot be null!");
+    }
+    if (isNotValid.email(this._email))
+      throw new BadRequestError("Email is not valid!");
+    if (isNotValid.char(this._firstName))
+      throw new BadRequestError("First name is not valid!");
+    if (isNotValid.char(this._lastName))
+      throw new BadRequestError("Last name is not valid");
+    if (isNotValid.password(this._password))
+      throw new BadRequestError("Password is not valid");
+    if (this._password) this._password = await hash(this._password, 8);
+  }
+
+  public get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+  public set isAdmin(value: boolean) {
+    this._isAdmin = value;
+  }
+  // public get id(): string {
+  //   return this._id;
+  // }
+  // public set id(value: string) {
+  //   this._id = value;
+  // }
 }
-class Account {
-  async getAccount(pk: number) {
-    return await Connection.getDefault()
-      .table("account")
-      .select(
-        "id",
-        "email",
-        "last_login",
-        "first_name",
-        "last_name",
-        "is_superuser",
-        "is_admin",
-        "is_active",
-        "created_at",
-        "updated_at"
-      )
-      .where({ id: pk })
-      .first();
-  }
-
-  async createAccount({
-    email,
-    first_name,
-    password,
-    last_name,
-    is_superuser,
-    is_admin,
-  }: IAccount) {
-    let newPassword;
-
-    if (await this.hasEmail(email as string))
-      throw new BadRequestError("Email already exists!");
-
-    if (password) newPassword = await hash(password, 8);
-
-    return await Connection.getDefault()
-      .table("account")
-      .insert({
-        email,
-        last_name,
-        first_name,
-        password: newPassword,
-        is_superuser,
-        is_admin,
-      })
-      .returning([
-        "id",
-        "email",
-        "last_login",
-        "first_name",
-        "last_name",
-        "is_superuser",
-        "is_admin",
-        "is_active",
-        "created_at",
-        "updated_at",
-      ]);
-  }
-
-  async updateAccount(
-    {
-      email,
-      first_name,
-      password,
-      last_name,
-      is_superuser,
-      is_admin,
-      is_active,
-    }: IAccount,
-    pk: number
-  ) {
-    let newPassword;
-    if (email)
-      if (await this.hasEmail(email as string))
-        throw new BadRequestError("Email already exists!");
-    if (password) newPassword = await hash(password, 8);
-    return await Connection.getDefault()
-      .table("account")
-      .where({ id: pk })
-      .update({
-        email,
-        last_name,
-        first_name,
-        password: newPassword,
-        is_superuser,
-        is_admin,
-        is_active,
-      })
-      .returning([
-        "id",
-        "email",
-        "last_login",
-        "first_name",
-        "last_name",
-        "is_superuser",
-        "is_admin",
-        "is_active",
-        "created_at",
-        "updated_at",
-      ]);
-  }
-
-  async deleteAccount(pk: number) {
-    return await Connection.getDefault()
-      .table("account")
-      .where({ id: pk })
-      .del();
-  }
-  async hasEmail(email: string) {
-    return await Connection.getDefault()
-      .table("account")
-      .select()
-      .where({ email: email })
-      .first();
-  }
-}
-export default new Account();

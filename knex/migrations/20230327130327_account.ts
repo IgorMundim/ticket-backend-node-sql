@@ -11,8 +11,6 @@ export async function up(knex: Knex): Promise<void> {
     table.boolean("is_superuser").defaultTo(false);
     table.boolean("is_admin").defaultTo(false);
     table.boolean("is_active").defaultTo(true);
-    table.string("resetToken");
-    table.timestamp("resetTokenExpiration");
     table.timestamps(true, true);
   });
   await knex.schema.createTable("refresh_token", (table) => {
@@ -37,7 +35,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("number", 15);
     table.string("street", 100);
     table.string("uf", 2);
-    table.integer("account_id").unique().unsigned().comment("Is not empty");
+    table.integer("account_id").unsigned().notNullable();
     table
       .foreign("account_id")
       .references("account.id")

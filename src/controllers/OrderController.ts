@@ -1,24 +1,18 @@
 import { Request, Response } from "express";
-import { query } from "../models/Order";
-
+import { OrderKnexDBRepository } from "../repositories/orderKnexDBRepository";
 class OrderController {
-  async index(req: Request, res: Response) {
-    return res.json(await query.getOrder(Number(req.params.pk)));
+  async findOne(req: Request, res: Response) {
+    const result = await new OrderKnexDBRepository().findOne(req.params);
+    if (result) return res.status(200).json(result);
+    return res.status(400).json({ message: "Order not found!" });
   }
-  async update(req: Request, res: Response) {
-    const order = await query.updateOrder(req.body, Number(req.params.pk));
-    if (order) return res.status(200).json();
-    return res.status(400).json();
+  async find(req: Request, res: Response) {
+    const result = await new OrderKnexDBRepository().find(req.params);
+    if (result[0]) return res.status(200).json(result);
+    return res.status(400).json({ message: "Order not found!" });
   }
-  async create(req: Request, res: Response) {
-    const order = await query.createOrder(req.body);
-    if (order) return res.status(200).json();
-    return res.status(400).json();
-  }
-  async delete(req: Request, res: Response) {
-    const order = await query.deleteOrder(Number(req.params.pk));
-    if (order) return res.status(200).json();
-    return res.status(400).json();
+  async cancel(req: Request, res: Response) {
+    const result = await new OrderKnexDBRepository().cancel(req.params);
   }
 }
 

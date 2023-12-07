@@ -1,108 +1,83 @@
 class Validator {
-  date(date: Date, name: string) {
+  date(date: Date) {
     if (date !== undefined)
-      if (date === null)
-        return { messageAlert: `Field ${name} canot be null!` };
-      else if (!String(date).match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/gm))
-        return {
-          messageAlert: `Invalid value to ${name}! aaaa-mm-dd hh:mm:ss`,
-        };
+      if (!String(date).match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/gm))
+        return true;
     return false;
   }
-  integer(integer: number, name: string) {
+  integer(integer: number) {
     if (integer !== undefined)
-      if (integer === null)
-        return { messageAlert: `Field ${name} canot be null!` };
-      else if (!String(integer).match(/^-?\d+$/gm))
-        return {
-          messageAlert: `Invalid value to ${name}!`,
-        };
+      if (!String(integer).match(/^-?\d+$/gm)) return true;
     return false;
   }
   email(email: string) {
     if (email !== undefined)
-      if (email === null) return { messageAlert: `Email canot be null!` };
-      else if (
+      if (
         !String(email).match(
           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/gm
         )
       )
-        return { messageAlert: `Invalid email!` };
+        return true;
     return false;
   }
   password(password: string) {
     if (password !== undefined)
-      if (password === null) return { messageAlert: `Password canot be null!` };
-      else if (
+      if (
         !String(password).match(
           /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=[\]{}|\\,.?<>~`])[A-Za-z\d!@#$%^&*()_+=[\]{}|\\,.?<>~`]{8,}$/gm
         )
       )
-        return { messageAlert: `Invalid password!` };
+        return true;
     return false;
   }
-  name(data: string, name: string) {
+
+  char(data: string) {
     if (data !== undefined)
-      if (data === null) return { messageAlert: `${name} canot be null!` };
-      else if (!String(data).match(/^[a-zA-Z]{2,58}$/gm))
-        return { messageAlert: `Invalid ${name}!` };
+      if (!String(data).match(/^[a-zA-Z]{2,58}$/gm)) return true;
     return false;
   }
-  isNotNull(isNotNull: string, name: string) {
-    if (isNotNull !== undefined)
-      if (isNotNull === null) return { messageAlert: `${name} canot be null!` };
-    return false;
-  }
-  isBollean(isBollean: boolean, name: string) {
-    if (isBollean !== undefined)
-      if (typeof isBollean !== "boolean")
-        return { messageAlert: `Fied ${name} needs boolean value !` };
+
+  isBoolean(isBoolean: boolean) {
+    if (isBoolean !== undefined)
+      if (typeof isBoolean !== "boolean") return true;
     return false;
   }
 
   cpf(cpf: string) {
     /* eslint-disable no-useless-escape */
     if (cpf !== undefined)
-      if (cpf === null) return { messageAlert: `CPF canot be null!` };
-      else if (!String(cpf).match(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/gm))
-        return { messageAlert: `Invalid CPF! ???.???.???-??` };
+      if (!String(cpf).match(/^\d{3}\.\d{3}\.\d{3}\-\d{2}$/gm)) return true;
     return false;
   }
 
   telephone(telephone: string) {
     if (telephone !== undefined)
-      if (telephone === null)
-        return { messageAlert: `Telephone canot be null!` };
-      else if (!String(telephone).match(/^\(\d{2}\) ?\d{4,5}\-\d{4}$/gm))
-        return {
-          messageAlert: `Invalid telephone! (??)?????-???? or (??)????-????`,
-        };
+      if (!String(telephone).match(/^\(\d{2}\) ?\d{4,5}\-\d{4}$/gm))
+        return true;
     return false;
   }
 
   postalCode(postal_code: string) {
     if (postal_code !== undefined)
-      if (postal_code === null)
-        return { messageAlert: `Postal code canot be null!` };
-      else if (!String(postal_code).match(/^\d{5}\-?\d{3}$/gm))
-        return {
-          messageAlert: `Invalid postal code! ?????-???`,
-        };
+      if (!String(postal_code).match(/^\d{5}\-?\d{3}$/gm)) return true;
     return false;
   }
   uf(uf: string) {
     if (uf !== undefined)
-      if (uf === null) return { messageAlert: `UF canot be null!` };
-      else if (!String(uf).match(/^[a-zA-Z]{2,2}$/gm))
-        return { messageAlert: `Invalid uf! ??` };
+      if (!String(uf).match(/^[a-zA-Z]{2,2}$/gm)) return true;
     return false;
   }
-  price(value: number, name: string) {
+
+  price(value: number) {
     if (value !== undefined)
-      if (value === null)
-        return { messageAlert: `Field ${name} canot be null!` };
-      else if (!String(value).match(/^[0-9]+(\.[0-9]{1,2})?$/gm))
-        return { messageAlert: `Invalid value to ${name}! ?.?` };
+      if (!String(value).match(/^[0-9]+(\.[0-9]{1,2})?$/gm)) return true;
+    return false;
+  }
+  percentage(value: number) {
+    if (value !== undefined)
+      if (!String(value).match(/^[0-9]{1,2}$/gm)) {
+        return true;
+      }
     return false;
   }
 }

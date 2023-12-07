@@ -19,6 +19,12 @@ export async function up(knex: Knex): Promise<void> {
     table.boolean("is_virtual").defaultTo(false);
     table.string("video_url", 200);
     table.boolean("is_published").defaultTo(true);
+    table.integer("account_id").unsigned().notNullable();
+    table
+      .foreign("account_id")
+      .references("account.id")
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
     table.timestamps(true, true);
   });
 
@@ -32,7 +38,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("number", 15);
     table.string("street", 100);
     table.string("uf", 2);
-    table.integer("event_id").unique().unsigned();
+    table.integer("event_id").unique().unsigned().notNullable();
     table
       .foreign("event_id")
       .references("event.id")
@@ -94,10 +100,8 @@ export async function up(knex: Knex): Promise<void> {
       .onUpdate("CASCADE");
     table.timestamps(true, true);
   });
-
 }
 
 export async function down(knex: Knex): Promise<void> {
-
   //
 }
